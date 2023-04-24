@@ -1,1 +1,1 @@
-#Simple STM32F767Zi project with FreeRTOS middleware
+# Simple STM32F767Zi project with FreeRTOS middleware
