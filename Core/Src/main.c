@@ -64,6 +64,8 @@ const osThreadAttr_t BlinkyTask_attributes = {
 };
 /* USER CODE BEGIN PV */
 char buf[128];
+
+TaskHandle_t myTaskLedBlink = NULL;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,7 +77,7 @@ void StartDefaultTask(void *argument);
 void StartBlinkyTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-
+void ledBlinkBlue(void *pvParameters);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -150,6 +152,16 @@ int main(void)
 
   /* creation of BlinkyTask */
   BlinkyTaskHandle = osThreadNew(StartBlinkyTask, NULL, &BlinkyTask_attributes);
+
+  /* self-created task */
+  xTaskCreate(
+		ledBlinkBlue,
+		"led_blinker",
+		128,
+		NULL,
+		osPriorityLow,
+		&myTaskLedBlink
+		);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -373,6 +385,16 @@ void StartDefaultTask(void *argument)
 }
 
 /* USER CODE BEGIN Header_StartBlinkyTask */
+
+void ledBlinkBlue(void *pvParameters)
+ {
+	for(;;)
+	{
+		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		vTaskDelay(500);
+	}
+ }
+
 /**
 * @brief Function implementing the BlinkyTask thread.
 * @param argument: Not used
