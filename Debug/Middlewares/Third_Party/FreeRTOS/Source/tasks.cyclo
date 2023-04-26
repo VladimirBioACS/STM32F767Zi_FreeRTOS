@@ -23,7 +23,7 @@ tasks.c:2330:13:uxTaskGetNumberOfTasks	1
 tasks.c:2338:7:pcTaskGetName	3
 tasks.c:2485:14:uxTaskGetSystemState	4
 tasks.c:2665:12:xTaskIncrementTick	12
-tasks.c:2947:6:vTaskSwitchContext	5
+tasks.c:2947:6:vTaskSwitchContext	6
 tasks.c:3020:6:vTaskPlaceOnEventList	2
 tasks.c:3037:6:vTaskPlaceOnUnorderedEventList	3
 tasks.c:3063:7:vTaskPlaceOnEventListRestricted	3
@@ -49,6 +49,9 @@ tasks.c:3923:13:xTaskGetSchedulerState	3
 tasks.c:3951:13:xTaskPriorityInherit	7
 tasks.c:4038:13:xTaskPriorityDisinherit	7
 tasks.c:4118:7:vTaskPriorityDisinheritAfterTimeout	10
+tasks.c:4283:15:prvWriteNameToBuffer	2
+tasks.c:4309:7:vTaskList	8
+tasks.c:4408:7:vTaskGetRunTimeStats	5
 tasks.c:4533:12:uxTaskResetEventItemValue	1
 tasks.c:4549:15:pvTaskIncrementMutexHeldCount	2
 tasks.c:4566:11:ulTaskNotifyTake	5

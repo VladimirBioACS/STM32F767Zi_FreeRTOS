@@ -49,6 +49,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -59,8 +61,13 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define USER_Btn_Pin GPIO_PIN_13
 #define USER_Btn_GPIO_Port GPIOC
+#define USER_Btn_EXTI_IRQn EXTI15_10_IRQn
 #define MCO_Pin GPIO_PIN_0
 #define MCO_GPIO_Port GPIOH
+#define LM35_sensor_AIN_Pin GPIO_PIN_0
+#define LM35_sensor_AIN_GPIO_Port GPIOC
+#define Potentiometer_AIN_Pin GPIO_PIN_3
+#define Potentiometer_AIN_GPIO_Port GPIOA
 #define LD1_Pin GPIO_PIN_0
 #define LD1_GPIO_Port GPIOB
 #define LD3_Pin GPIO_PIN_14
@@ -89,7 +96,12 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+#define DEBUG_ON		(1)
 
+#if DEBUG_ON == 1
+#define DBG(...)    printf(__VA_ARGS__);\
+                    printf("\r\n\0");
+#endif
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
