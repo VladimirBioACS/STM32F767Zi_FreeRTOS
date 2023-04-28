@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------
- * Portions Copyright © 2019 STMicroelectronics International N.V. All rights reserved.
+ * Portions Copyright ï¿½ 2019 STMicroelectronics International N.V. All rights reserved.
  * Copyright (c) 2013-2019 Arm Limited. All rights reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -144,7 +144,7 @@ static osKernelState_t KernelState = osKernelInactive;
 #undef SysTick_Handler
 
 /* CMSIS SysTick interrupt handler prototype */
-extern void SysTick_Handler     (void);
+__weak extern void SysTick_Handler     (void);
 /* FreeRTOS tick timer interrupt handler prototype */
 extern void xPortSysTickHandler (void);
 

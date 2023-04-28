@@ -1,3 +1,4 @@
+cmsis_os2.c:154:6:SysTick_Handler	2
 cmsis_os2.c:168:22:SVC_Setup	1
 cmsis_os2.c:185:12:osKernelInitialize	6
 cmsis_os2.c:206:12:osKernelGetInfo	5

@@ -58,15 +58,14 @@ unsigned long getRunTimeCounterValue(void);
 
 /* USER CODE BEGIN 1 */
 /* Functions needed when configGENERATE_RUN_TIME_STATS is on */
-__weak void configureTimerForRunTimeStats(void)
-{
-
-}
+__weak void configureTimerForRunTimeStats(void){}
 
 __weak unsigned long getRunTimeCounterValue(void)
 {
-return 0;
+	return 0;
 }
+
+//__weak void SysTick_Handler( void ) {}
 /* USER CODE END 1 */
 
 /* Private application code --------------------------------------------------*/

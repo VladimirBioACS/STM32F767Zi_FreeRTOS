@@ -159,7 +159,9 @@ const osEventFlagsAttr_t ISREvent_attributes = {
   .cb_size = sizeof(ISREventControlBlock),
 };
 /* USER CODE BEGIN PV */
+#if (FREERTOS_PROFILER == 1)
 volatile unsigned long ulHighFrequencyTimerTicks;
+#endif
 
 TaskHandle_t myTaskLedBlink = NULL;
 
@@ -190,12 +192,23 @@ static void printUsartMessage(char* message);
 
 void configureTimerForRunTimeStats(void);
 unsigned long getRunTimeCounterValue(void);
-int _write(int file, char *ptr, int len);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#if (SWO_DEBUG == 1)
 
+/* Override low-level _write system call */
+int _write(int file, char *ptr, int len)
+{
+  /* Implement your write code here, this is used by puts and printf for example */
+  int i=0;
+  for(i=0 ; i<len ; i++)
+    ITM_SendChar((*ptr++));
+  return len;
+}
+
+#endif
 /* USER CODE END 0 */
 
 /**
@@ -221,7 +234,8 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  xTraceInitialize();
+//  vTraceEnable(TRC_START);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -239,15 +253,6 @@ int main(void)
 
   HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
 
-//  strcpy(buf, "stm32 FreeRTOS blink project\r\n\0");
-////  sprintf();
-//
-//  HAL_UART_Transmit(
-//        &huart3,
-//        (uint8_t*)buf,
-//        strlen(buf),
-//        HAL_MAX_DELAY
-//  );
 
   /* USER CODE END 2 */
 
@@ -360,19 +365,12 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 192;
+  RCC_OscInitStruct.PLL.PLLM = 15;
+  RCC_OscInitStruct.PLL.PLLN = 144;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 5;
   RCC_OscInitStruct.PLL.PLLR = 2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Activate the Over-Drive mode
-  */
-  if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
@@ -383,8 +381,8 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
@@ -703,7 +701,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-#if DEBUG_ON == 1
+#if (FREERTOS_PROFILER == 1)
 void configureTimerForRunTimeStats(void)
 {
     ulHighFrequencyTimerTicks = 0;
@@ -715,17 +713,7 @@ unsigned long getRunTimeCounterValue(void)
 	return ulHighFrequencyTimerTicks;
 }
 
-int _write(int file, char *ptr, int len)
- {
-	 int DataIdx;
-	 for (DataIdx = 0; DataIdx < len; DataIdx++)
-	 {
-		 ITM_SendChar(*ptr++);
-	 }
-	 return len;
- }
 #endif
-
 /**
   * @brief User button IRQ callback function
   * @param uint16_t GPIO_Pin
@@ -798,7 +786,7 @@ void ledBlinkBlue(void *pvParameters)
 	for(;;)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-		vTaskDelay(500); // 0.5 sec (calculated in ticks)
+		vTaskDelay(100);
 	}
  }
 
@@ -816,8 +804,7 @@ void StartBlinkyTask(void *argument)
   for(;;)
   {
 	HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-	printf("Hello world\n");
-	osDelay(1000); // 1 sec (calculated in ticks)
+	osDelay(500);
   }
   /* USER CODE END StartBlinkyTask */
 }
@@ -846,7 +833,7 @@ void adcReadValueTask(void *argument)
 			0,
 			osWaitForever);
 
-    osDelay(100);
+    osDelay(10);
   }
   /* USER CODE END adcReadValueTask */
 }
@@ -878,7 +865,7 @@ void readTempTask(void *argument)
 			osWaitForever
 			);
 
-    osDelay(100);
+    osDelay(10);
   }
   /* USER CODE END readTempTask */
 }
@@ -917,7 +904,7 @@ void pwmLedBrightnessTask(void *argument)
 			osWaitForever
 			);
 
-    osDelay(100);
+    osDelay(10);
   }
   /* USER CODE END pwmLedBrightnessTask */
 }
@@ -1019,7 +1006,7 @@ void checkISRStateTask(void *argument)
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
+  * @note   This function is called  when TIM8 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
@@ -1030,7 +1017,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
+  if (htim->Instance == TIM8) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */

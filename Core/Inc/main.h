@@ -96,11 +96,12 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-#define DEBUG_ON		(1)
+#define FREERTOS_PROFILER  (1)
+#define SWO_DEBUG  		   (0)
 
-#if DEBUG_ON == 1
+#if (SWO_DEBUG == 1)
 #define DBG(...)    printf(__VA_ARGS__);\
-                    printf("\r\n\0");
+                    printf("\r\n");
 #endif
 /* USER CODE END Private defines */
 
