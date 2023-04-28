@@ -14,7 +14,7 @@
 ../Middlewares/Third_Party/FreeRTOS/Source/queue.c:747:12:xQueueGenericSend	72	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/queue.c:957:12:xQueueGenericSendFromISR	72	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/queue.c:1108:12:xQueueGiveFromISR	16	static
-../Middlewares/Third_Party/FreeRTOS/Source/queue.c:1108:12:MyWrapper_xQueueGiveFromISR	80	static,ignoring_inline_asm
+../Middlewares/Third_Party/FreeRTOS/Source/queue.c:1108:12:MyWrapper	80	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/queue.c:1273:12:xQueueReceive	64	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/queue.c:1414:12:xQueueSemaphoreTake	72	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/queue.c:1632:12:xQueuePeek	72	static,ignoring_inline_asm

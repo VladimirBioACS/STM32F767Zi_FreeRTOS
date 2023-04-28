@@ -234,8 +234,9 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  xTraceInitialize();
+
 //  vTraceEnable(TRC_START);
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -258,7 +259,7 @@ int main(void)
 
   /* Init scheduler */
   osKernelInitialize();
-
+  vTraceEnable(TRC_START);
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
