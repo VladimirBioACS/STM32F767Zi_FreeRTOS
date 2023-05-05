@@ -35,9 +35,10 @@ typedef StaticEventGroup_t osStaticEventGroupDef_t;
 /* USER CODE BEGIN PTD */
 
 typedef struct{
-	char msg_buf[120];
+	char msg_buf[200];
 	uint16_t adc_val;
 } QUEUE_t;
+
 
 /* USER CODE END PTD */
 
@@ -171,12 +172,12 @@ osEventFlagsId_t EventGroup1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USB_OTG_FS_PCD_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_TIM13_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_TIM10_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_USB_OTG_FS_PCD_Init(void);
 void StartDefaultTask(void *argument);
 void StartBlinkyTask(void *argument);
 void adcReadValueTask(void *argument);
@@ -192,6 +193,7 @@ static void printUsartMessage(char* message);
 
 void configureTimerForRunTimeStats(void);
 unsigned long getRunTimeCounterValue(void);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -209,6 +211,14 @@ int _write(int file, char *ptr, int len)
 }
 
 #endif
+
+/* Debug Exception and Monitor Control Register base address */
+#define DEMCR                 *((volatile uint32_t*) 0xE000EDFCu)
+
+/* ITM register addresses */
+#define ITM_STIMULUS_PORT0    *((volatile uint32_t*) 0xE0000000u)
+#define ITM_TRACE_EN          *((volatile uint32_t*) 0xE0000E00u)
+
 /* USER CODE END 0 */
 
 /**
@@ -234,19 +244,17 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
 //  vTraceEnable(TRC_START);
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USB_OTG_FS_PCD_Init();
   MX_ADC1_Init();
   MX_TIM13_Init();
   MX_ADC2_Init();
   MX_TIM10_Init();
   MX_USART3_UART_Init();
+  MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_ADC_Start(&hadc1);
@@ -254,18 +262,23 @@ int main(void)
 
   HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
 
+  ITM_SendChar(0x00);
+  ITM_SendChar(0x0F);
+  ITM_SendChar(0xF0);
+  ITM_SendChar(0xFF);
 
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
-  vTraceEnable(TRC_START);
+
   /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+#if(TRACELIZER_ENB == 1)
+  vTraceEnable(TRC_START);
+#endif
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -513,7 +526,7 @@ static void MX_TIM10_Init(void)
   htim10.Instance = TIM10;
   htim10.Init.Prescaler = 0;
   htim10.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim10.Init.Period = 956;
+  htim10.Init.Period = 599;
   htim10.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim10.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim10) != HAL_OK)
@@ -715,6 +728,7 @@ unsigned long getRunTimeCounterValue(void)
 }
 
 #endif
+
 /**
   * @brief User button IRQ callback function
   * @param uint16_t GPIO_Pin

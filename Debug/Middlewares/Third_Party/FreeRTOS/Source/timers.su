@@ -2,7 +2,7 @@
 ../Middlewares/Third_Party/FreeRTOS/Source/timers.c:282:16:xTimerCreate	40	static
 ../Middlewares/Third_Party/FreeRTOS/Source/timers.c:309:16:xTimerCreateStatic	48	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/timers.c:349:13:prvInitialiseNewTimer	32	static,ignoring_inline_asm
-../Middlewares/Third_Party/FreeRTOS/Source/timers.c:381:12:xTimerGenericCommand	48	static,ignoring_inline_asm
+../Middlewares/Third_Party/FreeRTOS/Source/timers.c:381:12:xTimerGenericCommand	56	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/timers.c:424:14:xTimerGetTimerDaemonTaskHandle	16	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/timers.c:433:12:xTimerGetPeriod	24	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/timers.c:442:6:vTimerSetReloadMode	24	static,ignoring_inline_asm

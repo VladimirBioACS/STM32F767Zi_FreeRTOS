@@ -6,7 +6,7 @@
 ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:490:13:xEventGroupClearBitsFromISR	24	static
 ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:503:13:xEventGroupGetBitsFromISR	40	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:519:13:xEventGroupSetBits	64	static,ignoring_inline_asm
-../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:613:6:vEventGroupDelete	32	static,ignoring_inline_asm
+../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:613:6:vEventGroupDelete	48	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:657:6:vEventGroupSetBitsCallback	16	static
 ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:665:6:vEventGroupClearBitsCallback	16	static
 ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c:671:19:prvTestWaitCondition	32	static

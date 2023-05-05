@@ -80,6 +80,7 @@ extern "C" {
  * See trcHardwarePort.h for available ports and information on how to
  * define your own port, if not already present.
  ******************************************************************************/
+#define TRC_CFG_ARM_CM_USE_SYSTICK
 #define TRC_CFG_HARDWARE_PORT TRC_HARDWARE_PORT_ARM_Cortex_M
 
 /*******************************************************************************
@@ -216,7 +217,7 @@ extern "C" {
  *
  * Default value is 0 (excluded) since dependent on event_groups.c
  *****************************************************************************/
-#define TRC_CFG_INCLUDE_EVENT_GROUP_EVENTS 0
+#define TRC_CFG_INCLUDE_EVENT_GROUP_EVENTS 1
 
  /*****************************************************************************
  * TRC_CFG_INCLUDE_TIMER_EVENTS
@@ -227,7 +228,7 @@ extern "C" {
  *
  * Default value is 0 since dependent on timers.c
  *****************************************************************************/
-#define TRC_CFG_INCLUDE_TIMER_EVENTS 0
+#define TRC_CFG_INCLUDE_TIMER_EVENTS 1
 
  /*****************************************************************************
  * TRC_CFG_INCLUDE_PEND_FUNC_CALL_EVENTS

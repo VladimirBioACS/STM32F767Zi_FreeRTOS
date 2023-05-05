@@ -26,10 +26,12 @@ OBJCOPY_BIN :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Core/Tracelizer/streamports/ARM_ITM \
 Core/Tracelizer \
 Drivers/STM32F7xx_HAL_Driver/Src \
 Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 \
 Middlewares/Third_Party/FreeRTOS/Source \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
+Middlewares/Third_Party/FreeRTOS_plus/coreJSON \
 

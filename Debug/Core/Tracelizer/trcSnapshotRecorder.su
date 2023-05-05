@@ -56,5 +56,4 @@
 ../Core/Tracelizer/trcSnapshotRecorder.c:2755:13:prvTraceLookupSymbolTableEntry	24	static
 ../Core/Tracelizer/trcSnapshotRecorder.c:2798:10:prvTraceCreateSymbolTableEntry	24	static
 ../Core/Tracelizer/trcSnapshotRecorder.c:2859:6:prvTraceGetChecksum	40	static
-../Core/Tracelizer/trcSnapshotRecorder.c:2931:6:prvTraceInitCortexM	8	static
-../Core/Tracelizer/trcSnapshotRecorder.c:2996:6:prvTracePortGetTimeStamp	32	static
+../Core/Tracelizer/trcSnapshotRecorder.c:2996:6:prvTracePortGetTimeStamp	24	static

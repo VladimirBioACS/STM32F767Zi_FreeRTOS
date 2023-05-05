@@ -97,6 +97,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 #define FREERTOS_PROFILER  (1)
+#define TRACELIZER_ENB	   (1)
 #define SWO_DEBUG  		   (0)
 
 #if (SWO_DEBUG == 1)

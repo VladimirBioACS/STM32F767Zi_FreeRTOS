@@ -56,5 +56,4 @@ trcSnapshotRecorder.c:2637:10:prvTraceGetDTS	13
 trcSnapshotRecorder.c:2755:13:prvTraceLookupSymbolTableEntry	8
 trcSnapshotRecorder.c:2798:10:prvTraceCreateSymbolTableEntry	4
 trcSnapshotRecorder.c:2859:6:prvTraceGetChecksum	6
-trcSnapshotRecorder.c:2931:6:prvTraceInitCortexM	3
-trcSnapshotRecorder.c:2996:6:prvTracePortGetTimeStamp	4
+trcSnapshotRecorder.c:2996:6:prvTracePortGetTimeStamp	8
